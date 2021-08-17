@@ -8,3 +8,4 @@ whitenoise
 django-environ
 python-decouple
 simple-salesforce
+pandas
