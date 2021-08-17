@@ -6,5 +6,3 @@ psycopg2
 dj_database_url
 whitenoise
 django-environ
-python-decouple
-simple-salesforce

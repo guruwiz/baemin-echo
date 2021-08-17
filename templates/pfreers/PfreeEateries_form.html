@@ -5,7 +5,17 @@
     <h5 class="my-3 border-bottom pb-2">Register a eatery</h5>
     <form method='post' class="post-form my-3">
         {% csrf_token %}
-        {{ form.as_p }}
+        Eatery types: <select name="eatery_types">
+                        <option value="KF">Koreanfood</option>
+                        <option value="CF">Chinesefood</option>
+                        <option value="CH">Chicken</option>
+                        <option value="PI">Pizza</option>
+                        <option value="SN">Snack</option>
+                        <option value="BO">Bossam</option>
+                        <option value="FF">Fastfood</option>
+                        <option value="HS">Hotsoup</option>
+                      </select><br><br>
+        Eatery name : <input type="text" name="eatery_name"><br>
         <button type="submit" class="btn btn-primary">save</button>
     </form>
 </div>
