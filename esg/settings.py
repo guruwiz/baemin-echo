@@ -144,12 +144,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-<<<<<<< HEAD
 # Change UTC
-=======
->>>>>>> dc625cf001e5dc7d2d4fbb872aa72a1c72b41bb0
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
