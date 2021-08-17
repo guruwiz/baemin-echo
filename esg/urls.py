@@ -20,4 +20,5 @@ from pfreers import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pfreers/', include('pfreers.urls')),
+    path('', include('pfreers.urls'))
 ]
