@@ -25,7 +25,7 @@ def index(request):
     page = request.GET.get('page', '1')
 
     # query
-    qry = 'SELECT Id, eatery_types__C, eatery_name__C, echo_level__c, echof_cont_cnt__c, perf_rate__C, join_date__c FROM pfree_eatery__c ORDER BY join_date__c DESC'
+    qry = 'SELECT Id, eatery_types__C, eatery_name__C, echo_level__c, echof_cont_cnt__c, perf_rate__C, join_date__c FROM pfree_eatery__c ORDER BY Id DESC'
     #PfreeEateries_list = PfreeEateries.objects.order_by('-create_date')
     
     qr = SOQL(qry)

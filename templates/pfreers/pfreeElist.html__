@@ -1,0 +1,106 @@
+<html>
+    <head> 
+        <title>Baemin ESG :: Home</title> <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <!-- CSS --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+        <!-- JS --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> 
+    </head>
+<body>
+
+{% load static %}
+<div class="jumbotron text-center"> 
+    <img src="{% static 'BAEMIN.png' %}" alt="baemin logo" height="140" width="100"><h1>BAEMIN ESG Homepage</h1> 
+    <p>Our efforts will continue until the planet is free from plastic.</p> 
+</div> 
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+{% load pfreers_filter %}
+<div class="container my-3">
+    <div class="row justify-content-end my-3">
+        <div class="col-4 input-group">
+            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="btn_search">Search</button>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th>Number</th>
+            <th>Eatery types</th>
+            <th>Eatery name</th>
+            <th>Echo level</th>
+            <th>Eco container sold count</th>
+            <th>Perf rate</th>
+            <th>Join date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if PfreeEateries_list %}
+        {% for elist in PfreeEateries_list %}
+        <tr>
+            <td>{{ PfreeEateries_list.paginator.count|sub:PfreeEateries_list.start_index|sub:forloop.counter0|add:1 }}</td>
+            <td>{{ elist.1 }}</td>
+            <td>{{ elist.2 }}</td>
+            <td>{{ elist.3 }}</td>
+            <td>{{ elist.4 }}</td>
+            <td>{{ elist.5 }}%</td>
+            <td>{{ elist.6 }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">There is no list of registered eateries.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <!-- Start paging processing -->
+    <ul class="pagination justify-content-center">
+        <!-- Previous page-->
+        {% if PfreeEateries_list.has_previous %}
+        <li class="page_item">
+            <a class="page-link" href="?page={{ PfreeEateries_list.previous_page_number }}">previous</a>
+        </li>
+        {% endif %}
+        <!-- Page list -->
+        {% for page_number in PfreeEateries_list.paginator.page_range %}
+        {% if page_number >= PfreeEateries_list.number|add:-5 and page_number <= PfreeEateries_list.number|add:5 %}
+            {% if page_number == PfreeEateries_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- Next page -->
+        {% if PfreeEateries_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ PfreeEateries_list.next_page_number }}">next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">next</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- End paging processing -->
+
+    <a href="{% url 'pfreers:PfreeEateries_create' %}" class="btn btn-primary">Register a eatery</a>
+</div>
+<form id="searchForm" method="get" action="{% url 'index' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+</body>
+</html>
